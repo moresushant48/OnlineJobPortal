@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab&display=swap" rel="stylesheet">
+	
+	<title>Home</title>
+	
+	<style type="text/css">
+		#bgimg {
+			height: 100vh;
+			width: 100%;
+			object-fit: cover;
+			z-index: -1;
+			position: fixed;
+			opacity: 0.8;
+		}
+	</style>
+	
+</head>
+<body>
+
+	<img id="bgimg" alt="" th:src="@{/images/background.jpg}">
+	
+	<span th:replace="master :: header"></span>
+
+	<div class="container text-light text-center" style="height:100vh; display: flex; align-items: center">
+		<div class="m-auto">
+			<h1>Find Your Dream Job</h1>
+		</div>
+	</div>
+	
+	<div class="text-center bg-white" style="height:95vh; display: flex; align-items: center">
+		<div style="margin: auto">
+			<h1>Our Partners</h1>
+			<hr>
+			<img alt="" th:src="@{/images/companies.webp}">
+			<h5 class="lead">"Get the Job you've always dreamed about."</h5>
+		</div>
+	</div>
+
+	<span th:replace="master :: footer"></span>
+	
+</body>
+</html>

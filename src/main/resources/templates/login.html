@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab&display=swap" rel="stylesheet">
+	
+	<title>Login</title>
+	
+</head>
+<body>
+	
+	<span th:replace="master :: header"></span>
+
+	<div class="container text-dark" style="height:100vh; display: flex; align-items: center">
+		<div class="bg-white p-4 m-auto card" style="width: 400px">
+			<h1 class="text-primary">Login</h1>
+			<form method="post">
+				<div class="form-group my-3">
+				    <label for="username">Username</label>
+				    <input type="text" class="form-control" name="username" id="username">
+				</div>
+				<div class="form-group my-3">
+				    <label for="password">Password</label>
+				    <input type="text" class="form-control" name="password" id="password">
+				</div>
+				<div class="text-right">
+					<input type="submit" class="btn btn-primary">
+				</div> 
+			</form>
+		</div>
+	</div>
+
+	<span th:replace="master :: footer"></span>
+	
+</body>
+</html>

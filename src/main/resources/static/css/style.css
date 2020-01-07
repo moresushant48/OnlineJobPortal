@@ -1,0 +1,17 @@
+@charset "ISO-8859-1";
+
+body {
+	background-color: ghostwhite !important;
+}
+
+a {
+	text-decoration: none;
+}
+
+hr {
+	width: 75%;
+}
+
+font-roboto-slab {
+	font-family: 'Roboto Slab', serif;
+}
