@@ -1,0 +1,4 @@
+role_id,role_desc,role_name
+1,"Super User.",ADMIN
+2,Recruiter.,RECRUITER
+3,"Normal User.",USER

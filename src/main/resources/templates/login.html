@@ -19,13 +19,13 @@
 	
 	<span th:replace="master :: header"></span>
 
-	<div class="container text-dark" style="height:100vh; display: flex; align-items: center">
+	<div th:action="@{/login}" class="container text-dark" style="height:100vh; display: flex; align-items: center">
 		<div class="bg-white p-4 m-auto card" style="width: 400px">
 			<h1 class="text-primary">Login</h1>
 			<form method="post">
 				<div class="form-group my-3">
-				    <label for="username">Username</label>
-				    <input type="text" class="form-control" name="username" id="username">
+				    <label for="email">E-mail</label>
+				    <input type="text" class="form-control" name="email" id="email">
 				</div>
 				<div class="form-group my-3">
 				    <label for="password">Password</label>

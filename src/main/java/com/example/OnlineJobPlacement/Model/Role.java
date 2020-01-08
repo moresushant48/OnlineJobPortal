@@ -1,0 +1,66 @@
+package com.example.OnlineJobPlacement.Model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+@Entity
+@Table(name = "tb_role")
+public class Role {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "role_id")
+	private long id;
+	
+	@Column(name = "role_name")
+	private String role;
+	
+	@Column(name = "role_desc")
+	private String desc;
+	
+	@OneToMany(mappedBy = "role")
+	private List<User> users = new ArrayList<User>();
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	@JsonBackReference
+	public List<User> getUser() {
+		return users;
+	}
+
+	public void setUser(List<User> users) {
+		this.users = users;
+	}
+}
