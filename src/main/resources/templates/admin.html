@@ -39,9 +39,9 @@
 				<td th:text="${request.address}"></td>
 				<td th:text="${request.status}"></td>
 				<td>
-				<a th:href="@{/admin/partnership/approve(id=${request.id})}"><i class="fa fa-check fa-lg" style="color:green"></i></a>
+				<a th:href="@{/admin/partnership/approve(statusId=${request.id},userId=${request.user.id})}"><i class="fa fa-check fa-lg" style="color:green"></i></a>
 				&nbsp;
-				<a th:href="@{/admin/partnership/deny(id=${request.id})}"><i class="fa fa-times fa-lg" style="color:red"></i></a>
+				<a th:href="@{/admin/partnership/deny(statusId=${request.id},userId=${request.user.id})}"><i class="fa fa-times fa-lg" style="color:red"></i></a>
 				</td>
 			</tr>
 		</thead>

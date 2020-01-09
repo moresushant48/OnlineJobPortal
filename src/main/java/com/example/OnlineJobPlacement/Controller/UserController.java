@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.OnlineJobPlacement.Model.RecruitmentApplication;
 import com.example.OnlineJobPlacement.Model.RecruitmentApplication.StatusConstants;
-import com.example.OnlineJobPlacement.Model.Role;
 import com.example.OnlineJobPlacement.Model.User;
 import com.example.OnlineJobPlacement.Repository.RecruitmentApplicationsRepository;
 import com.example.OnlineJobPlacement.Repository.UserRepository;
@@ -56,8 +55,6 @@ public class UserController {
 			recruitmentApplication.setEmail(user.getEmail());
 			recruitmentApplication.setStatus(StatusConstants.UNCHECKED);
 			if(recruitmentApplicationsRepository.save(recruitmentApplication) != null) {
-					user.setRole(new Role(2l));
-					userRepository.save(user);
 					mv.addObject("result", "Successfully Applied for Partnership verification.");
 				} else mv.addObject("result", "Could't apply for Partnership verification.");
 		}

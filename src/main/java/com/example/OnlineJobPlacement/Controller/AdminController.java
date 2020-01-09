@@ -12,12 +12,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.OnlineJobPlacement.Model.RecruitmentApplication;
+import com.example.OnlineJobPlacement.Model.User;
 import com.example.OnlineJobPlacement.Model.RecruitmentApplication.StatusConstants;
+import com.example.OnlineJobPlacement.Model.Role;
 import com.example.OnlineJobPlacement.Repository.RecruitmentApplicationsRepository;
+import com.example.OnlineJobPlacement.Repository.UserRepository;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	@Autowired
 	RecruitmentApplicationsRepository recruitementApplicationRepository;
@@ -33,23 +39,31 @@ public class AdminController {
 	}
 	
 	@GetMapping("/partnership/approve")
-	public ModelAndView approveGET(@RequestParam("id") Long id) {
+	public ModelAndView approveGET(@RequestParam("statusId") Long statusId, @RequestParam("userId") Long userId) {
 		ModelAndView mv = new ModelAndView("redirect:/admin/partnership");
 		
-		RecruitmentApplication ra = recruitementApplicationRepository.getOne(id);
+		RecruitmentApplication ra = recruitementApplicationRepository.getOne(statusId);
 		ra.setStatus(StatusConstants.APPROVED);
-		recruitementApplicationRepository.save(ra);
+		if(recruitementApplicationRepository.save(ra) != null) {
+			User user = userRepository.getOne(userId);
+			user.setRole(new Role(2l));
+			userRepository.save(user);
+		}
 		
 		return mv;
 	}
 	
 	@GetMapping("/partnership/deny")
-	public ModelAndView denyGET(@RequestParam("id") Long id) {
+	public ModelAndView denyGET(@RequestParam("statusId") Long statusId, @RequestParam("userId") Long userId) {
 		ModelAndView mv = new ModelAndView("redirect:/admin/partnership");
 		
-		RecruitmentApplication ra = recruitementApplicationRepository.getOne(id);
+		RecruitmentApplication ra = recruitementApplicationRepository.getOne(statusId);
 		ra.setStatus(StatusConstants.DENIED);
-		recruitementApplicationRepository.save(ra);
+		if(recruitementApplicationRepository.save(ra) != null) {
+			User user = userRepository.getOne(userId);
+			user.setRole(new Role(3l));
+			userRepository.save(user);
+		}
 		
 		return mv;
 	}
