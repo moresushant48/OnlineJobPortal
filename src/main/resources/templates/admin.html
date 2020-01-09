@@ -6,6 +6,7 @@
 
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab&display=swap" rel="stylesheet">
 	
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -14,44 +15,38 @@
 	
 	<title>Home</title>
 	
-	<style type="text/css">
-		#bgimg {
-			height: 100vh;
-			width: 100%;
-			object-fit: cover;
-			z-index: -1;
-			position: fixed;
-			opacity: 0.8;
-		}
-	</style>
-	
 </head>
 <body>
-
-	<img id="bgimg" alt="" th:src="@{/images/background.jpg}">
 	
 	<span th:replace="master :: header"></span>
 
-	<div class="container text-light text-center" style="height:100vh; display: flex; align-items: center">
-		<div class="m-auto">
-			<h1>Find Your Dream Job</h1>
-		</div>
-	</div>
-	
-	<div class="bg-dark text-center text-light p-3">
-		<h1>Become a partner, hire people for your Work.</h1>
-		<br>
-		<a href="/user/partnershipForm" class="btn-primary p-3 m-3 rounded text-decoration-none">Become a partner</a>
-		<br><br>
-	</div>
-	
-	<div class="text-center bg-white" style="height:95vh; display: flex; align-items: center">
-		<div style="margin: auto">
-			<h1>Our Partners</h1>
-			<hr>
-			<img alt="" th:src="@{/images/companies.webp}">
-			<h5 class="lead">"Get the Job you've always dreamed about."</h5>
-		</div>
+	<div class="container text-light text-center vh-100" style="display: flex; align-items: center">
+		<table class="table bg-white table-bordered">
+		<thead class="thead-dark">
+			<tr>
+				<th>Email</th>
+				<th>Company Name</th>
+				<th>Website</th>
+				<th>Address</th>
+				<th>Status</th>
+				<th>Action</th>
+			</tr>
+			
+			<tr th:each="request : ${requests}">
+				<td th:text="${request.email}"></td>
+				<td th:text="${request.companyName}"></td>
+				<td th:text="${request.website}"></td>
+				<td th:text="${request.address}"></td>
+				<td th:text="${request.status}"></td>
+				<td>
+				<a th:href="@{/admin/partnership/approve(id=${request.id})}"><i class="fa fa-check fa-lg" style="color:green"></i></a>
+				&nbsp;
+				<a th:href="@{/admin/partnership/deny(id=${request.id})}"><i class="fa fa-times fa-lg" style="color:red"></i></a>
+				</td>
+			</tr>
+		</thead>
+		
+		</table>
 	</div>
 
 	<span th:replace="master :: footer"></span>
