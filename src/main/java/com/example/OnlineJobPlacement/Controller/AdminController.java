@@ -68,4 +68,20 @@ public class AdminController {
 		return mv;
 	}
 	
+	@GetMapping("/listUsers")
+	public ModelAndView listAllUsers() {
+		ModelAndView mv = new ModelAndView("adminListUsers");
+		
+		List<User> userList = userRepository.findAll();
+		mv.addObject("users", userList);
+		
+		return mv;		
+	}
+	
+	@GetMapping("/listUsers/delete")
+	public ModelAndView deleteUser(@RequestParam("userId") Long userId) {
+
+		userRepository.deleteById(userId);
+		return new ModelAndView("redirect:/admin/listUsers");
+	}
 }
