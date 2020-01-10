@@ -30,7 +30,7 @@ public class AdminController {
 
 	@GetMapping("/partnership")
 	public ModelAndView partnershipGET() {
-		ModelAndView mv = new ModelAndView("admin");
+		ModelAndView mv = new ModelAndView("adminPartnership");
 		
 		List<RecruitmentApplication> items = recruitementApplicationRepository.findAll(Sort.by(Order.desc("id")));
 		mv.addObject("requests", items);
