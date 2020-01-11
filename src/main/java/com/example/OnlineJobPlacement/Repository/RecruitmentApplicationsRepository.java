@@ -11,4 +11,7 @@ public interface RecruitmentApplicationsRepository extends JpaRepository<Recruit
 	
 	@Query(value = "SELECT * FROM recruitment_applications WHERE user_id = ?1", nativeQuery = true)
 	public RecruitmentApplication getPartnershipDataFromUserId(Long userId);
+
+	@Query(value = "SELECT * FROM recruitment_applications WHERE user_id = ?1", nativeQuery = true)
+	public RecruitmentApplication findRecruiterByUserId(Long userId);
 }
