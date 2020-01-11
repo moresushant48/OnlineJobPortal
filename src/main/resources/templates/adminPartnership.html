@@ -38,7 +38,7 @@
 			<tr th:each="request : ${requests}">
 				<td th:text="${request.email}"></td>
 				<td th:text="${request.companyName}"></td>
-				<td th:text="${request.website}"></td>
+				<td><a th:href="${request.website}" th:text="${request.website}"></a></td>
 				<td th:text="${request.address}"></td>
 				<td th:text="${request.status}"></td>
 				<td>

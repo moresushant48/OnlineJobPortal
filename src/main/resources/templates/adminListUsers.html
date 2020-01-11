@@ -30,6 +30,7 @@
 				<th>#</th>
 				<th>Name</th>
 				<th>Email</th>
+				<th>Resume</th>
 				<th>Role</th>
 				<th>Action</th>
 			</tr>
@@ -38,6 +39,7 @@
 				<td th:text="${user.id}"></td>
 				<td th:text="${user.username}"></td>
 				<td th:text="${user.email}"></td>
+				<td><a th:href="${user.resume}" th:text="${user.resume}"></a></td>
 				<td th:text="${user.role.role}"></td>
 				<td>
 				<a th:href="@{/admin/listUsers/delete(userId=${user.id})}"><i class="fa fa-trash fa-lg" style="color:red"></i></a>				
