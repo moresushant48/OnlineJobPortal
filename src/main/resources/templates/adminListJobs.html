@@ -42,7 +42,7 @@
 				<td th:text="${job.recruitmentApplication.website}"></td>
 				<td th:text="${job.jobDetails}"></td>
 				<td>
-				<a th:href="@{/recruiter/getJobsList/delete(jobId=${job.jobId})}"><i class="fa fa-trash fa-lg" style="color:red"></i></a>				
+				<a th:href="@{/admin/listJobs/delete(jobId=${job.jobId})}"><i class="fa fa-trash fa-lg" style="color:red"></i></a>				
 				</td>
 			</tr>
 		</table>
