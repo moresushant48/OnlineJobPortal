@@ -29,17 +29,21 @@
 				</div>
 				<div class="form-group my-3">
 				    <label for="username">Full Name</label>
-				    <input th:field="*{username}" type="text" class="form-control" name="username" id="username" pattern="[a-zA-Z\s]{3,}" title="Alphabets only. Atlest 3." tabindex="2" required="required" autofocus="autofocus">
+				    <input th:field="*{username}" type="text" class="form-control" name="username" id="username" pattern="[a-zA-Z\s]{3,}" title="Alphabets only. Atlest 3." tabindex="2" required="required">
+				</div>
+				<div class="form-group my-3">
+				    <label for="resume">Resume Link</label>
+				    <input th:field="*{resume}" type="url" class="form-control" name="resume" id="resume" tabindex="3" required="required">
 				</div>
 				<div class="form-group my-3">
 				    <label for="password">Password</label>
-				    <input th:field="*{password}" type="password" class="form-control" name="password" id="password" pattern="[a-zA-Z0-9]{5,15}" title="Alphabets & Digits only. Atlest 5. Max 15" tabindex="3" required="required" autofocus="autofocus">
+				    <input th:field="*{password}" type="password" class="form-control" name="password" id="password" pattern="[a-zA-Z0-9]{5,15}" title="Alphabets & Digits only. Atlest 5. Max 15" tabindex="4" required="required">
 				</div>
 				<div class="text-right">
-					<input type="submit" class="btn btn-primary" tabindex="4">
+					<input type="submit" class="btn btn-primary" tabindex="5">
 				</div>
 				
-				<div class="alert alert-success my-3 text-center" th:if="${result}" role="alert">
+				<div class="alert alert-success mt-3 text-center" th:if="${result}" role="alert">
 	      			[[${result}]]
 	      		</div>
 			</form>
