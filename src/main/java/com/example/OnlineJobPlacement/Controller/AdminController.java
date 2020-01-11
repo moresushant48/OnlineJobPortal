@@ -87,7 +87,17 @@ public class AdminController {
 	@GetMapping("/listUsers/delete")
 	public ModelAndView deleteUser(@RequestParam("userId") Long userId) {
 
+		// delete all the jobs by user if exists
+		List<Job> jobs = jobRepository.listJobsByRecruiter(userId);
+		jobRepository.deleteAll(jobs);
+
+		// delete partnership details of user.
+		RecruitmentApplication recruitmentApplication = recruitementApplicationRepository.getPartnershipDataFromUserId(userId);
+		recruitementApplicationRepository.delete(recruitmentApplication);
+		
+		// Delete the user.
 		userRepository.deleteById(userId);
+		
 		return new ModelAndView("redirect:/admin/listUsers");
 	}
 	
