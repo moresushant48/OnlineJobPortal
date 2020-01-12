@@ -54,7 +54,10 @@ public class RecruiterController {
 		
 		if(!bindingResult.hasErrors()) {
 			job.setRecruitmentApplication(recruiter);
-			jobRepository.save(job);
+			
+			if( jobRepository.save(job) != null ) {
+				mv.addObject("result", "Added Job.");
+			} else mv.addObject("result", "Couldn't Add Job.");
 		}
 		
 		return mv;
