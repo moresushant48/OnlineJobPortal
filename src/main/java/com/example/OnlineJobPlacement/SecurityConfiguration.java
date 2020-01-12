@@ -46,6 +46,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		.antMatchers("/").permitAll()
 		.antMatchers("/login").permitAll()
 		.antMatchers("/register").permitAll()
+		.antMatchers("/jobs").permitAll()
+		.antMatchers("/admin/**").hasAuthority("ADMIN")
+		.antMatchers("/recruiter/**").hasAuthority("RECRUITER")
 		.and()
 		
 		//login
@@ -76,7 +79,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		
 		//exception
 		.exceptionHandling()
-		.accessDeniedPage("/accessDenied");
+		.accessDeniedPage("/");
 		super.configure(http);
 	}
 	
