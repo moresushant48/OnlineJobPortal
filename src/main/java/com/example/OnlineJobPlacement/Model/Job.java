@@ -1,5 +1,7 @@
 package com.example.OnlineJobPlacement.Model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +34,9 @@ public class Job {
 	@JoinColumn(name = "recruiter_id")
 	private RecruitmentApplication recruitmentApplication;
 
+	@OneToMany(mappedBy = "job")
+	private List<UserJobs> userJobs;
+	
 	public Long getJobId() {
 		return jobId;
 	}
@@ -69,5 +75,13 @@ public class Job {
 
 	public void setRecruitmentApplication(RecruitmentApplication recruitmentApplication) {
 		this.recruitmentApplication = recruitmentApplication;
+	}
+
+	public List<UserJobs> getUserJobs() {
+		return userJobs;
+	}
+
+	public void setUserJobs(List<UserJobs> userJobs) {
+		this.userJobs = userJobs;
 	}
 }

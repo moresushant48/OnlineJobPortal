@@ -23,6 +23,7 @@
 	<div class="text-dark text-center p-3">
 	<br><br><br>
 		<h2>List of Jobs</h2>
+		[[${existMsg}]]
 		<br>
 		<a th:each="job : ${jobs}" class="border-bottom-0 border-primary text-decoration-none text-dark card card-body bg-white" data-toggle="collapse" th:href="@{#id} + ${job.jobId}" role="button" aria-expanded="false" aria-controls="collapseExample">
 		  	
@@ -38,6 +39,7 @@
 			</div>
 			<a th:href="${job.recruitmentApplication.website}" th:text="${job.recruitmentApplication.website}" target="_BLANK" class="btn border-primary border-top-0 border-bottom-0 bg-white card text-primary" style="width: 100%">Website</a>
 			<a th:href="@{/jobs/apply(jobId=${job.jobId})}" class="btn btn-primary mb-2" style="width: 100%">Apply for this Job</a>
+			
 		</a>
 	</div>
 
