@@ -23,10 +23,10 @@
 	<div class="text-dark text-center p-3">
 	<br><br><br>
 		<h2>List of Jobs</h2>
-		[[${existMsg}]]
+		<h3 th:if="${param.id} == '1'" th:text="${param.id}"></h3>
+		
 		<br>
 		<a th:each="job : ${jobs}" class="border-bottom-0 border-primary text-decoration-none text-dark card card-body bg-white" data-toggle="collapse" th:href="@{#id} + ${job.jobId}" role="button" aria-expanded="false" aria-controls="collapseExample">
-		  	
 		  	<div class="row mx-2">
 			  	<h5 class="col"><small>Company</small><br>[[${job.recruitmentApplication.companyName}]]</h5>
 				<h5 class="col"><small>Designation</small><br> [[${job.jobPost}]]</h5>
@@ -40,6 +40,11 @@
 			<a th:href="${job.recruitmentApplication.website}" th:text="${job.recruitmentApplication.website}" target="_BLANK" class="btn border-primary border-top-0 border-bottom-0 bg-white card text-primary" style="width: 100%">Website</a>
 			<a th:href="@{/jobs/apply(jobId=${job.jobId})}" class="btn btn-primary mb-2" style="width: 100%">Apply for this Job</a>
 			
+			<div th:if="${#strings.equals(param.id, job.jobId)}" class="alert alert-info">
+				<p th:if="${param?.exist}">You've already applied for this Job.</p>
+				<p th:if="${param?.success}">Applied Successfully.</p>
+				<p th:if="${param?.failed}">Please try again.</p>
+			</div>
 		</a>
 	</div>
 

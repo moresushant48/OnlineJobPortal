@@ -18,7 +18,7 @@ import com.example.OnlineJobPlacement.Repository.UserRepository;
 
 @Controller
 public class JobsController {
-
+	
 	@Autowired
 	UserRepository userRepository;
 	
@@ -40,22 +40,23 @@ public class JobsController {
 	
 	@GetMapping("/jobs/apply")
 	public ModelAndView applyForJob(@RequestParam("jobId") Long jobId, Principal principal) {
-		ModelAndView mv = new ModelAndView("redirect:/jobs");
+		ModelAndView mv = new ModelAndView();
 		
 		User user = userRepository.findByEmail(principal.getName());
 		Job job = jobRepository.getOne(jobId);
 		UserJobs userJobs = new UserJobs(job, user);
 		
+		String url = "redirect:/jobs?id=" + jobId;
+		
 		if(userJobsRepository.existsByJobJobIdAndUserId(jobId, user.getId())) {
-			System.out.println("Already applied for the job.");
-//			mv.addObject("existJobId", jobId);
-//			mv.addObject("existMsg", "Already applied for this job.");
+			url += "&exist=true";
+			mv.setViewName(url);
 			return mv;
 		}
 		
-		if(userJobsRepository.save(userJobs) != null) System.out.println("Applied for the Job.");
-		else System.out.println("Couldn't apply for the Job.");
-		
+		if(userJobsRepository.save(userJobs) != null) url += "&success=true";
+		else url += "&failed=true";
+		mv.setViewName(url);
 		return mv;
 	}
 	
