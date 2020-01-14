@@ -11,6 +11,7 @@
 			<li class="nav-item active"><a class="nav-link text-light" href="/">Home</a></li>
 			<li class="nav-item active"><a class="nav-link text-light" href="/login" th:unless="${#authorization.expression('isAuthenticated()')}">Login</a></li>
 			<li class="nav-item active"><a class="nav-link text-light" href="/register" th:unless="${#authorization.expression('isAuthenticated()')}">Sign Up</a></li>
+			<li class="nav-item active"><a class="nav-link text-light" href="/user/account" th:if="${#authorization.expression('isAuthenticated()')}">Account</a></li>			
 			<li class="nav-item active"><a class="nav-link text-light" href="/admin/partnership" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">Partnerships</a></li>
 			<li class="nav-item active"><a class="nav-link text-light" href="/admin/listUsers" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">User List</a></li>
 			<li class="nav-item active"><a class="nav-link text-light" href="/admin/listJobs" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">Jobs List</a></li>

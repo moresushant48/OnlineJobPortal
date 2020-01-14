@@ -60,4 +60,14 @@ public class UserController {
 		}
 		return mv;
 	}
+	
+	@GetMapping("/account")
+	public ModelAndView accountGET(Principal principal) {
+		ModelAndView mv = new ModelAndView("userAccount");
+		
+		User user = userRepository.findByEmail(principal.getName());
+		mv.addObject("user", user);
+		
+		return mv;
+	}
 }
