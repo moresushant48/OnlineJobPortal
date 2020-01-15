@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import com.example.OnlineJobPlacement.Model.RecruitmentApplication;
 import com.example.OnlineJobPlacement.Model.User;
 import com.example.OnlineJobPlacement.Repository.JobRepository;
 import com.example.OnlineJobPlacement.Repository.RecruitmentApplicationsRepository;
+import com.example.OnlineJobPlacement.Repository.UserJobsRepository;
 import com.example.OnlineJobPlacement.Repository.UserRepository;
 
 @Controller
@@ -33,7 +35,10 @@ public class RecruiterController {
 	
 	@Autowired
 	RecruitmentApplicationsRepository recruiterRepository;
-
+	
+	@Autowired
+	UserJobsRepository userJobsRepository;
+	
 	@Autowired
 	UserRepository userRepository;
 	
@@ -83,4 +88,15 @@ public class RecruiterController {
 		return mv;
 	}
 	
+	@GetMapping("/job/{jobId}/users")
+	public ModelAndView listUsersForJob(@PathVariable("jobId") Long jobId) {
+		ModelAndView mv = new ModelAndView("recruiterListUsersForJob");
+		
+		mv.addObject("job", jobRepository.getOne(jobId));
+		
+		List<User> users = userRepository.listUsersForOneJob(jobId);
+		mv.addObject("users", users);
+		
+		return mv;
+	}
 }

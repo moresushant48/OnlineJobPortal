@@ -13,35 +13,41 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	
-	<title>User List</title>
+	<title>Job Seekers</title>
 	
 </head>
 <body>
 	
 	<span th:replace="master :: header"></span>
 
-	<div class="container text-light text-center vh-100" style="display: flex; align-items: center">
+	<div class="container text-dark text-center vh-100 p-3">
+	<br><br><br>
+	<h2>People Who Applied for this Job.</h2>
+	<div class="row alert alert-success">
+		<span class="col">
+			<small>Designation</small>
+			<p th:text="${job?.jobPost}"></p>
+		</span>
+		<span class="col">
+			<small>Technology</small>
+			<p th:text="${job?.tech}"></p>
+		</span>
+	</div>
 		<table class="table bg-white table-bordered">
 		<thead class="thead-dark">
 			<tr>
-				<th>Post</th>
-				<th>Technology</th>
-				<th>Job Details</th>
-				<th>Applications</th>
-				<th>Action</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Resume</th>
+			</tr>
+			
+			<tr th:each="user : ${users}">
+				<td th:text="${user.username}"></td>
+				<td th:text="${user.email}"></td>
+				<td><a th:href="${user.resume}" th:text="${user.resume}"></a></td>
 			</tr>
 		</thead>
-			<tr th:each="job : ${jobs}">
-				<td th:text="${job.jobPost}"></td>
-				<td th:text="${job.tech}"></td>
-				<td th:text="${job.jobDetails}"></td>
-				<td>
-				<a th:href="@{/recruiter/job/} + ${job.jobId} + @{/users}">View</a>
-				</td>
-				<td>
-				<a th:href="@{/recruiter/getJobsList/delete(jobId=${job.jobId})}"><i class="fa fa-trash fa-lg" style="color:red"></i></a>				
-				</td>
-			</tr>
+		
 		</table>
 	</div>
 

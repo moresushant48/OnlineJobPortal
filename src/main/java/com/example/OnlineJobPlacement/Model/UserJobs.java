@@ -25,7 +25,12 @@ public class UserJobs {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	
+		
+	public UserJobs() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public UserJobs(Job job, User user) {
 		super();
 		this.job = job;
