@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.OnlineJobPlacement.Model.RecruitmentApplication;
@@ -22,7 +23,7 @@ import com.example.OnlineJobPlacement.Repository.UserRepository;
 @RequestMapping("/user")
 public class UserController {
 	
-	private User user = new User();
+	private User user;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -65,8 +66,18 @@ public class UserController {
 	public ModelAndView accountGET(Principal principal) {
 		ModelAndView mv = new ModelAndView("userAccount");
 		
-		User user = userRepository.findByEmail(principal.getName());
+		user = userRepository.findByEmail(principal.getName());
 		mv.addObject("user", user);
+		
+		return mv;
+	}
+	
+	@PostMapping("/account/update/resume")
+	public ModelAndView updateResume(@RequestParam("resume") String resume) {
+		ModelAndView mv = new ModelAndView("redirect:/user/account");
+		
+		user.setResume(resume);
+		userRepository.save(user);
 		
 		return mv;
 	}

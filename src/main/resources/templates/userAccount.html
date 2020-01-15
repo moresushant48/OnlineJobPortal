@@ -32,9 +32,18 @@
 				<h5 th:text="${user.email}"></h5>
 			</span>
 			<span class="mb-3">
-				<small>Resume</small> <i class="fa fa-pencil" title="Edit" onclick=""></i>
+				<small>Resume</small> <i class="fa fa-pencil" title="Edit" onclick="document.getElementById('resumeForm').style.display='block';"></i>
 				<h5><a th:href="${user.resume}" th:text="${user.resume}" target="_BLANK"></a></h5>
 			</span>
+			<form id="resumeForm" class="mb-3" method="post" th:action="@{/user/account/update/resume}">
+				<input type="url" name="resume" class="form-control">
+				<input type="submit" value="Update" class="btn btn-primary mt-2">
+			</form>
+			<script type="text/javascript">
+			document.getElementById('resumeForm').style.display='none';
+			</script>
+			
+			
 			<span th:if="${user.recruitmentApplication?.companyName}" class="mb-3">
 				<small>Company Name</small>
 				<h5 th:text="${user.recruitmentApplication?.companyName}"></h5>
