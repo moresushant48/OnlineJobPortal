@@ -9,5 +9,6 @@ import com.example.OnlineJobPlacement.Model.UserJobs;
 public interface UserJobsRepository extends JpaRepository<UserJobs, Long> {
 	
 	public boolean existsByJobJobIdAndUserId(Long jobId, Long userId);
-	
+
+	public void deleteByJobJobIdAndUserId(Long jobId, Long userId);
 }

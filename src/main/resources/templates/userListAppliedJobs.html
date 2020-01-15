@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab&display=swap" rel="stylesheet">
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	
+	<title>Applied Jobs</title>
+	
+</head>
+<body>
+	
+	<span th:replace="master :: header"></span>
+
+	<div class="container text-dark text-center p-3">
+	<br><br><br>
+	<h2>You've applied for following Jobs.</h2>
+	<br>
+		<a th:each="job : ${jobs}" class="border-bottom-0 border-primary text-decoration-none text-dark card card-body bg-white" data-toggle="collapse" th:href="@{#id} + ${job.jobId}" role="button" aria-expanded="false" aria-controls="collapseExample">
+		  	<div class="row mx-2">
+			  	<h5 class="col"><small>Company</small><br>[[${job.recruitmentApplication.companyName}]]</h5>
+				<h5 class="col"><small>Designation</small><br> [[${job.jobPost}]]</h5>
+				<h5 class="col"><small>Technology</small><br> [[${job.tech}]]</h5>
+		  	</div>
+		  	<i class="fa fa-chevron-circle-down fa-lg"></i>
+		  	
+			<div class="collapse" th:id="@{id} + ${job.jobId}">
+			  	<br><p th:text="${job.jobDetails}"></p>
+			</div>
+			<a th:href="${job.recruitmentApplication.website}" th:text="${job.recruitmentApplication.website}" target="_BLANK" class="btn border-primary border-top-0 border-bottom-0 bg-white card text-primary" style="width: 100%">Website</a>
+			<a th:href="@{/user/myJobs/cancel(jobId=${job.jobId})}" class="btn btn-primary mb-2" style="width: 100%">Cancel</a>
+		</a>
+	</div>
+	
+</body>
+</html>

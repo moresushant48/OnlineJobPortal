@@ -17,4 +17,6 @@ public interface JobRepository extends JpaRepository<Job, Long>{
 	@Query(value = "SELECT j.job_id, j.job_post, j.tech, j.job_details, r.recruiter_id FROM job as j INNER JOIN recruitment_applications as r ON(j.recruiter_id=r.recruiter_id)", nativeQuery = true)
 	public List<Job> listJobsByAdmin(Long userId);
 	
+	@Query(value = "SELECT j.job_id, j.job_post, j.tech, j.job_details, j.recruiter_id FROM job j INNER JOIN user_jobs uj ON(j.job_id=uj.job_id) WHERE user_id = ?1", nativeQuery = true)
+	public List<Job> listJobsForOneUser(Long userId);
 }

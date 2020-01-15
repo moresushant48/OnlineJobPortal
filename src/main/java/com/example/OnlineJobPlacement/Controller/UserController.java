@@ -2,6 +2,8 @@ package com.example.OnlineJobPlacement.Controller;
 
 import java.security.Principal;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.OnlineJobPlacement.Model.RecruitmentApplication;
 import com.example.OnlineJobPlacement.Model.RecruitmentApplication.StatusConstants;
 import com.example.OnlineJobPlacement.Model.User;
+import com.example.OnlineJobPlacement.Repository.JobRepository;
 import com.example.OnlineJobPlacement.Repository.RecruitmentApplicationsRepository;
+import com.example.OnlineJobPlacement.Repository.UserJobsRepository;
 import com.example.OnlineJobPlacement.Repository.UserRepository;
 
 @Controller
@@ -27,6 +31,12 @@ public class UserController {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	JobRepository jobRepository;
+	
+	@Autowired
+	UserJobsRepository userJobsRepository;
 	
 	@Autowired
 	RecruitmentApplicationsRepository recruitmentApplicationsRepository;
@@ -78,6 +88,26 @@ public class UserController {
 		
 		user.setResume(resume);
 		userRepository.save(user);
+		
+		return mv;
+	}
+	
+	@GetMapping("/myJobs")
+	public ModelAndView myjobsGET(Principal principal) {
+		ModelAndView mv = new ModelAndView("userListAppliedJobs");
+		
+		user = userRepository.findByEmail(principal.getName());
+		mv.addObject("jobs", jobRepository.listJobsForOneUser(user.getId()));
+		
+		return mv;
+	}
+	
+	@Transactional
+	@GetMapping("/myJobs/cancel")
+	public ModelAndView myjobsCancelGET(@RequestParam("jobId") Long jobId) {
+		ModelAndView mv = new ModelAndView("redirect:/user/myJobs");
+		
+		userJobsRepository.deleteByJobJobIdAndUserId(jobId, user.getId());
 		
 		return mv;
 	}
