@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.OnlineJobPlacement.Model.Job;
 import com.example.OnlineJobPlacement.Model.RecruitmentApplication;
 import com.example.OnlineJobPlacement.Model.User;
+import com.example.OnlineJobPlacement.Model.UserJobs;
+import com.example.OnlineJobPlacement.Model.UserJobs.JobStatus;
 import com.example.OnlineJobPlacement.Repository.JobRepository;
 import com.example.OnlineJobPlacement.Repository.RecruitmentApplicationsRepository;
 import com.example.OnlineJobPlacement.Repository.UserJobsRepository;
@@ -94,8 +96,21 @@ public class RecruiterController {
 		
 		mv.addObject("job", jobRepository.getOne(jobId));
 		
-		List<User> users = userRepository.listUsersForOneJob(jobId);
+		List<UserJobs> users = userJobsRepository.listUsersForOneJob(jobId);
 		mv.addObject("users", users);
+		
+		return mv;
+	}
+	
+	@GetMapping("/job/{jobId}/user")
+	public ModelAndView setJobStatusOfUser(@PathVariable("jobId") Long jobId, @RequestParam("userId") Long userId, @RequestParam("statusId") int statusId) {
+		ModelAndView mv = new ModelAndView("redirect:/recruiter/job/" + jobId + "/users");
+		UserJobs userJobs = userJobsRepository.findByJobJobIdAndUserId(jobId, userId);
+		
+		if(statusId == 1) userJobs.setJobStatus(JobStatus.SELECTED);
+		else if(statusId == 0) userJobs.setJobStatus(JobStatus.NOTSELECTED);
+		
+		userJobsRepository.save(userJobs);
 		
 		return mv;
 	}

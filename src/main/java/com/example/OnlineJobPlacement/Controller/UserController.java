@@ -97,7 +97,7 @@ public class UserController {
 		ModelAndView mv = new ModelAndView("userListAppliedJobs");
 		
 		user = userRepository.findByEmail(principal.getName());
-		mv.addObject("jobs", jobRepository.listJobsForOneUser(user.getId()));
+		mv.addObject("userJobs", userJobsRepository.listJobsForOneUser(user.getId()));
 		
 		return mv;
 	}

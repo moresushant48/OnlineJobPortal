@@ -39,12 +39,20 @@
 				<th>Name</th>
 				<th>Email</th>
 				<th>Resume</th>
+				<th>Status</th>
+				<th>Action</th>
 			</tr>
 			
 			<tr th:each="user : ${users}">
-				<td th:text="${user.username}"></td>
-				<td th:text="${user.email}"></td>
-				<td><a th:href="${user.resume}" th:text="${user.resume}"></a></td>
+				<td th:text="${user.user.username}"></td>
+				<td th:text="${user.user.email}"></td>
+				<td><a th:href="${user.user.resume}" th:text="${user.user.resume}"></a></td>
+				<td th:text="${user.jobStatus}"></td>
+				<td>
+					<a th:href="@{/recruiter/job/} + ${job.jobId} + @{/user(userId=${user.user.id},statusId=1)}"><i class="fa fa-check fa-lg" style="color:green"></i></a>
+					&nbsp;
+					<a th:href="@{/recruiter/job/} + ${job.jobId} + @{/user(userId=${user.user.id},statusId=0)}"><i class="fa fa-times fa-lg" style="color:red"></i></a>
+				</td>
 			</tr>
 		</thead>
 		

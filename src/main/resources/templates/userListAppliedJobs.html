@@ -24,19 +24,21 @@
 	<br><br><br>
 	<h2>You've applied for following Jobs.</h2>
 	<br>
-		<a th:each="job : ${jobs}" class="border-bottom-0 border-primary text-decoration-none text-dark card card-body bg-white" data-toggle="collapse" th:href="@{#id} + ${job.jobId}" role="button" aria-expanded="false" aria-controls="collapseExample">
+		<a th:each="userJob : ${userJobs}" class="border-bottom-0 border-primary text-decoration-none text-dark card card-body bg-white" data-toggle="collapse" th:href="@{#id} + ${userJob.job.jobId}" role="button" aria-expanded="false" aria-controls="collapseExample">
 		  	<div class="row mx-2">
-			  	<h5 class="col"><small>Company</small><br>[[${job.recruitmentApplication.companyName}]]</h5>
-				<h5 class="col"><small>Designation</small><br> [[${job.jobPost}]]</h5>
-				<h5 class="col"><small>Technology</small><br> [[${job.tech}]]</h5>
+			  	<h5 class="col"><small>Company</small><br>[[${userJob.job.recruitmentApplication.companyName}]]</h5>
+				<h5 class="col"><small>Designation</small><br>[[${userJob.job.jobPost}]]</h5>
+				<h5 class="col"><small>Technology</small><br>[[${userJob.job.tech}]]</h5>
+				<h5 class="col text-success" th:if="${#strings.equals(userJob.jobStatus, 'SELECTED')}"><small>Selection Status</small><br>[[${userJob.jobStatus}]]</h5>
+				<h5 class="col text-danger" th:unless="${#strings.equals(userJob.jobStatus, 'SELECTED')}"><small>Selection Status</small><br>[[${userJob.jobStatus}]]</h5>
 		  	</div>
 		  	<i class="fa fa-chevron-circle-down fa-lg"></i>
 		  	
-			<div class="collapse" th:id="@{id} + ${job.jobId}">
-			  	<br><p th:text="${job.jobDetails}"></p>
+			<div class="collapse" th:id="@{id} + ${userJob.job.jobId}">
+			  	<br><p th:text="${userJob.job.jobDetails}"></p>
 			</div>
-			<a th:href="${job.recruitmentApplication.website}" th:text="${job.recruitmentApplication.website}" target="_BLANK" class="btn border-primary border-top-0 border-bottom-0 bg-white card text-primary" style="width: 100%">Website</a>
-			<a th:href="@{/user/myJobs/cancel(jobId=${job.jobId})}" class="btn btn-primary mb-2" style="width: 100%">Cancel</a>
+			<a th:href="${userJob.job.recruitmentApplication.website}" th:text="${userJob.job.recruitmentApplication.website}" target="_BLANK" class="btn border-primary border-top-0 border-bottom-0 bg-white card text-primary" style="width: 100%">Website</a>
+			<a th:href="@{/user/myJobs/cancel(jobId=${userJob.job.jobId})}" class="btn btn-primary mb-2" style="width: 100%">Cancel</a>
 		</a>
 	</div>
 	

@@ -26,6 +26,9 @@ public class UserJobs {
 	@JoinColumn(name = "user_id")
 	private User user;
 		
+	@Column(name = "job_status")
+	public String jobStatus;
+	
 	public UserJobs() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -35,6 +38,7 @@ public class UserJobs {
 		super();
 		this.job = job;
 		this.user = user;
+		this.jobStatus = JobStatus.UNCHECKED;
 	}
 
 	public Long getUserJobsId() {
@@ -59,5 +63,19 @@ public class UserJobs {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getJobStatus() {
+		return jobStatus;
+	}
+
+	public void setJobStatus(String jobStatus) {
+		this.jobStatus = jobStatus;
+	}
+	
+	public class JobStatus {
+		public final static String SELECTED = "SELECTED";
+		public final static String NOTSELECTED = "NOT SELECTED";
+		public final static String UNCHECKED = "UNCHECKED";
 	}
 }
