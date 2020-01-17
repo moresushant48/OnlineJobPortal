@@ -24,6 +24,7 @@ import com.example.OnlineJobPlacement.Repository.JobRepository;
 import com.example.OnlineJobPlacement.Repository.RecruitmentApplicationsRepository;
 import com.example.OnlineJobPlacement.Repository.UserJobsRepository;
 import com.example.OnlineJobPlacement.Repository.UserRepository;
+import com.example.OnlineJobPlacement.Services.EmailService;
 
 @Controller
 @RequestMapping("/recruiter")
@@ -31,6 +32,9 @@ public class RecruiterController {
 	
 	private RecruitmentApplication recruiter;
 	private User user;
+	
+	@Autowired
+	EmailService emailService;
 	
 	@Autowired
 	JobRepository jobRepository;
@@ -106,8 +110,14 @@ public class RecruiterController {
 	public ModelAndView setJobStatusOfUser(@PathVariable("jobId") Long jobId, @RequestParam("userId") Long userId, @RequestParam("statusId") int statusId) {
 		ModelAndView mv = new ModelAndView("redirect:/recruiter/job/" + jobId + "/users");
 		UserJobs userJobs = userJobsRepository.findByJobJobIdAndUserId(jobId, userId);
-		
-		if(statusId == 1) userJobs.setJobStatus(JobStatus.SELECTED);
+				
+		if(statusId == 1) {
+			userJobs.setJobStatus(JobStatus.SELECTED);
+			User user = userRepository.getOne(userId);
+			Job job = jobRepository.getOne(jobId);
+			
+			emailService.sendEmail(user.getEmail(), job);
+		}
 		else if(statusId == 0) userJobs.setJobStatus(JobStatus.NOTSELECTED);
 		
 		userJobsRepository.save(userJobs);
